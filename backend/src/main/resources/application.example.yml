@@ -1,0 +1,47 @@
+# Copy to application.yml and enter your local database password before starting.
+server:
+  port: 8080
+
+spring:
+  application:
+    name: journalflow
+  datasource:
+    url: jdbc:mysql://localhost:3306/journalflow?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "REPLACE_WITH_YOUR_LOCAL_DATABASE_PASSWORD"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+
+journal:
+  jwt:
+    # Local demonstration only. Replace before any non-local deployment.
+    secret: journalflow-demo-secret-key-please-change-in-production-0123456789abcdef
+    expire-hours: 72
+  upload-dir: ./uploads
+  llm:
+    provider: mock
+    base-url: https://open.bigmodel.cn/api/paas/v4
+    api-key: ""
+    model: glm-4-flash
+    timeout-seconds: 30
+    temperature: 0.2
+    max-tokens: 1024
+
+logging:
+  level:
+    org.springframework.security: INFO
